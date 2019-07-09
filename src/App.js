@@ -6,17 +6,18 @@ class App extends Component{
     constructor(){
         super();
         this.state = {
-            searchbox: ''
+            searchbox: '',
+            advice: 'Shitty advice',
         };
     }
 
     onSearchChange = (event) => {
-        this.setState({searchbox: event.target.value});
+        this.setState({searchbox: event.target.value.toLowerCase()});
     }
 
     onClickButton = (event) => {
         event.preventDefault();
-        console.log(this.state.searchbox);
+        // Add the api call here then the result should change the state of advice
     }
 
     render (){ 
@@ -26,7 +27,7 @@ class App extends Component{
         <img className='logo' src="" alt='Aleksandra Chrapkowska'></img>
         <Searchbox searchChange={this.onSearchChange} clickButton={this.onClickButton}/>
         </header>
-        <AdviceCard advice='Shitty halibut advice.'/>
+        <AdviceCard advice={this.state.advice}/>
         </div>
         );
     }
