@@ -1,10 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './AdviceCard.css';
 
-class AdviceCard extends Component{
-
-    render(){
-        const {advice} = this.props;
+const AdviceCard = ({advice}) => {
         return (
             <div className="AdviceCard">
             <picture srcSet="" alt="Enlightened Halibut"></picture>
@@ -13,7 +10,6 @@ class AdviceCard extends Component{
             <button>Gib Advice!</button>
             </div>
         );
-    }
 }
 
 export default AdviceCard;
