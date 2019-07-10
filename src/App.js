@@ -7,7 +7,7 @@ class App extends Component{
         super();
         this.state = {
             searchbox: '',
-            advice: 'Shitty advice',
+            advice: `Enlightened halibut will give you the advice you don't need nor deserve.`,
         };
     }
 
@@ -15,9 +15,25 @@ class App extends Component{
         this.setState({searchbox: event.target.value.toLowerCase()});
     }
 
-    onClickButton = (event) => {
+    onClickButtonSearch = (event) => {
         event.preventDefault();
-        // Add the api call here then the result should change the state of advice
+
+        fetch(`https://api.adviceslip.com/advice/search/${this.state.searchbox}`)
+        .then(response=>response.json())
+        .then(adviceslip => {
+            const rand = Math.floor(Math.random() * adviceslip.total_results);
+            this.setState({advice:adviceslip.slips[rand].advice})
+        })
+        .catch(error => this.setState({advice:'Enlightened halibut has no advice for you.'}));
+        
+    }
+
+    onClickButtonRandom = (event) => {
+        event.preventDefault();
+ 
+        fetch('	https://api.adviceslip.com/advice')
+        .then(response=>response.json())
+        .then(adviceslip => this.setState({advice:adviceslip.slip.advice}));
     }
 
     render (){ 
@@ -25,9 +41,9 @@ class App extends Component{
         <div>
         <header>
         <img className='logo' src="" alt='Aleksandra Chrapkowska'></img>
-        <Searchbox searchChange={this.onSearchChange} clickButton={this.onClickButton}/>
+        <Searchbox searchChange={this.onSearchChange} clickButtonSearch={this.onClickButtonSearch}/>
         </header>
-        <AdviceCard advice={this.state.advice}/>
+        <AdviceCard advice={this.state.advice} clickButtonRandom={this.onClickButtonRandom}/>
         </div>
         );
     }
