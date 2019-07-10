@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import AdviceCard from './AdviceCard';
-import Searchbox from './Searchbox';
+import AdviceCard from '../components/AdviceCard';
+import Searchbox from '../components/Searchbox';
 
 class App extends Component{
     constructor(){
@@ -37,13 +37,15 @@ class App extends Component{
     }
 
     render (){ 
+        const {advice} = this.state;
+
         return (
         <div>
-        <header>
-        <img className='logo' src="" alt='Aleksandra Chrapkowska'></img>
-        <Searchbox searchChange={this.onSearchChange} clickButtonSearch={this.onClickButtonSearch}/>
-        </header>
-        <AdviceCard advice={this.state.advice} clickButtonRandom={this.onClickButtonRandom}/>
+            <header>
+                <img className='logo' src="" alt='Aleksandra Chrapkowska'></img>
+                <Searchbox searchChange={this.onSearchChange} clickButtonSearch={this.onClickButtonSearch}/>
+            </header>
+            <AdviceCard advice={advice} clickButtonRandom={this.onClickButtonRandom}/>
         </div>
         );
     }
