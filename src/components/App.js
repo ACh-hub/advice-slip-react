@@ -19,11 +19,15 @@ class App extends Component{
             searchBoxValue: data
           });
 
-    searchBarSubmitHandler = () => 
-    this.setState({
-        advice: 'changed'
-      });
-    
+    searchBarSubmitHandler = () => {
+    fetch(`https://api.adviceslip.com/advice/search/${this.state.searchBoxValue}`)
+    .then(response=>response.json())
+    .then(adviceslip => {
+        const rand = Math.floor(Math.random() * adviceslip.total_results);
+        this.setState({advice:adviceslip.slips[rand].advice})
+    })
+    .catch(error => this.setState({advice:'Enlightened halibut has no advice for you.'}));
+}
     render (){
         return (
         <div>
